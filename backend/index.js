@@ -21,8 +21,8 @@ app.use(express.json());
 // CORS configuration - allow multiple origins
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://visura-655ut4gxo-kedars-projects-70f5988e.vercel.app',
-  'https://visura.io',
+  'https://visura-io.vercel.app',
+  'https://visura-io-kedars-projects-70f5988e.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
