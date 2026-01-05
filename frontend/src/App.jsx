@@ -1,6 +1,6 @@
 import React from "react"
 import LandingPage from "./pages/LandingPage"
-import Routing from "./routing/routing"
+import Routing from "./routing/Routing"
 import {Toaster} from "react-hot-toast"
 
 function App() {
