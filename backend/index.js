@@ -22,7 +22,6 @@ app.use(express.json());
 const allowedOrigins = [
   'http://localhost:5173',
   'https://visura-io.vercel.app',
-  'https://visura-io-kedars-projects-70f5988e.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
