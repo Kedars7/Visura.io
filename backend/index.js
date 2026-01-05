@@ -35,6 +35,10 @@ app.use('/api/styles', stylePresetRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/output', outputRoutes);
 
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
+
 const PORT = process.env.PORT || 3001;
 
 
