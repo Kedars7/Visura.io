@@ -39,6 +39,17 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
+// Middleware to ensure DB connection for each request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection middleware error:', error);
+    res.status(503).json({ message: 'Database connection failed' });
+  }
+});
+
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/assets', assetRoutes);
@@ -50,8 +61,19 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-// Connect to database
-connectDB();
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ 
+    message: "Server error",
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
+});
+
+// Connect to database initially (for local development)
+if (require.main === module) {
+  connectDB();
+}
 
 // For Vercel serverless deployment
 module.exports = app;
