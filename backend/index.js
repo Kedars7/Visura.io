@@ -56,10 +56,16 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-const PORT = process.env.PORT || 3001;
+// Connect to database
+connectDB();
 
+// For Vercel serverless deployment
+module.exports = app;
 
-
-app.listen(PORT, () => {
-    connectDB();
-});
+// For local development
+if (require.main === module) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
