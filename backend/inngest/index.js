@@ -63,6 +63,10 @@ const generateImage = inngest.createFunction(
 
     //Fetch project details
     const project = await step.run("fetch-project", async () => {
+      // Ensure database connection
+      const connectDB = require("../config/database.js");
+      await connectDB();
+      
       const Project = require("../models/projectModel.js");
 
       const proj = await Project.findById(projectId)
@@ -209,6 +213,10 @@ Avoid:
 
     //Store thumbnail URL in project
     await step.run("store-thumbnail-url", async () => {
+      // Ensure database connection
+      const connectDB = require("../config/database.js");
+      await connectDB();
+      
       const resultDB = require("../models/generationModel.js");
       await resultDB.create({
         projectId: projectId,
