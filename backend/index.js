@@ -8,7 +8,8 @@ const projectRoutes = require('./routes/projectRoute.js');
 const assetRoutes = require('./routes/assetRoute.js');
 const stylePresetRoutes = require('./routes/stylePresetRoute.js');
 const aiRoutes = require('./routes/aiRoute.js');
-const outputRoutes = require('./routes/getOutputRoute.js')
+const outputRoutes = require('./routes/getOutputRoute.js');
+const inngestRoutes = require('./routes/inngestRoute.js');
 const connectDB = require('./config/database.js');
 const cors = require("cors");
 
@@ -56,6 +57,7 @@ app.use('/api/assets', assetRoutes);
 app.use('/api/styles', stylePresetRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/output', outputRoutes);
+app.use('/api/inngest-proxy', inngestRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
