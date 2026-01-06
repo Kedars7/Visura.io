@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
+// Disable buffering to avoid timeout issues in serverless
+mongoose.set('bufferCommands', false);
+
 let isConnected = false;
 
 const connectDB = async () => {
-  if (isConnected) {
+  if (isConnected && mongoose.connection.readyState === 1) {
     console.log('Using existing MongoDB connection');
     return;
   }
@@ -15,14 +18,19 @@ const connectDB = async () => {
     }
     
     const db = await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
+      minPoolSize: 1,
     });
     
     isConnected = db.connections[0].readyState === 1;
     console.log('MongoDB connected successfully');
+    return db;
   }
   catch(error){
     console.error('MongoDB connection failed:', error.message);
+    isConnected = false;
     throw error;
   }
 };
