@@ -574,4 +574,4 @@ For questions, issues, or feature requests, please open an issue on GitHub.
 
 ---
 
-**Built with ❤️ by creators, for creators**
+**Built with ❤️ by Kedar, for creators**
