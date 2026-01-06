@@ -4,7 +4,7 @@
 
 Visura is a full-stack web application that leverages generative AI to help content creators design stunning thumbnails without any design experience. Simply provide your video title and vision, and let AI do the heavy lifting.
 
-![Visura Banner](https://via.placeholder.com/1200x400/6366f1/ffffff?text=Visura+AI+Thumbnail+Generator)
+Visit: https://visura-io.vercel.app/
 
 ---
 
