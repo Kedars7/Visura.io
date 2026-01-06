@@ -12,9 +12,6 @@ const outputRoutes = require('./routes/getOutputRoute.js')
 const connectDB = require('./config/database.js');
 const cors = require("cors");
 
-const {serve} = require("inngest/express");
-const {inngest, functions} = require("./inngest/index.js");
-
 const app = express();
 app.use(express.json());
 
@@ -41,9 +38,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(cookieParser());
-
-app.use("/api/inngest", serve({ client: inngest, functions }));
-
 
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);

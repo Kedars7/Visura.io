@@ -4,9 +4,17 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "api/inngest.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/inngest",
+      "dest": "api/inngest.js"
+    },
     {
       "src": "/(.*)",
       "dest": "index.js"
