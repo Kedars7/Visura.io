@@ -145,74 +145,74 @@ Output only the final interpreted style prompt, without saying that you analyzed
       );
     }
 
-    //Image generation function
-    const outputUrl = await step.run("generate-thumbnail-image", async () => {
+//     //Image generation function
+//     const outputUrl = await step.run("generate-thumbnail-image", async () => {
 
-      //add the project orientation in ratio form
-      const orientationRatio = project.orientation === "landscape" ? "16:9" : "9:16";
+//       //add the project orientation in ratio form
+//       const orientationRatio = project.orientation === "landscape" ? "16:9" : "9:16";
 
-      const styleLine = project.reference
-        ? `Style to follow (based on reference thumbnail style):\n${referenceImgPrompt}\n`
-        : "";
+//       const styleLine = project.reference
+//         ? `Style to follow (based on reference thumbnail style):\n${referenceImgPrompt}\n`
+//         : "";
 
-      //prompt for image generation
-      const finalPrompt = `
-Generate an ultra high-quality, photo-realistic thumbnail image for a YouTube or social media video.
+//       //prompt for image generation
+//       const finalPrompt = `
+// Generate an ultra high-quality, photo-realistic thumbnail image for a YouTube or social media video.
 
-Context:
-- Video Title: ${project.title}
-- Visual Concept: ${project.inputPrompt}
-- Theme: ${project.styleId.promptTemplate}
-- Orientation: ${orientationRatio}
+// Context:
+// - Video Title: ${project.title}
+// - Visual Concept: ${project.inputPrompt}
+// - Theme: ${project.styleId.promptTemplate}
+// - Orientation: ${orientationRatio}
 
-${styleLine}
-Design Requirements:
-- Ultra realistic, highly detailed, professional thumbnail aesthetic
-- Strong, clear focus on the main subject
-- Clean composition with visual hierarchy and good spacing
-- Leave clear space for short, bold text derived from the video title
-- If logo is provided, place it at the ${project.logoPosition} corner
-- If subject image is provided, integrate it naturally at the ${project.subjectPosition}
-- Use cinematic lighting, sharp focus, crisp contrast, and rich colors
-- Ensure text is large, bold, and easily readable at small sizes
-- Make the image strictly in the given orientation (${orientationRatio})
+// ${styleLine}
+// Design Requirements:
+// - Ultra realistic, highly detailed, professional thumbnail aesthetic
+// - Strong, clear focus on the main subject
+// - Clean composition with visual hierarchy and good spacing
+// - Leave clear space for short, bold text derived from the video title
+// - If logo is provided, place it at the ${project.logoPosition} corner
+// - If subject image is provided, integrate it naturally at the ${project.subjectPosition}
+// - Use cinematic lighting, sharp focus, crisp contrast, and rich colors
+// - Ensure text is large, bold, and easily readable at small sizes
+// - Make the image strictly in the given orientation (${orientationRatio})
 
-Avoid:
-- Blurry, noisy, or low-resolution areas
-- Distorted anatomy, especially faces or hands
-- Overcrowded layouts, chaotic backgrounds, or tiny unreadable text
-- Watermarks, random logos, or UI elements
-`;
+// Avoid:
+// - Blurry, noisy, or low-resolution areas
+// - Distorted anatomy, especially faces or hands
+// - Overcrowded layouts, chaotic backgrounds, or tiny unreadable text
+// - Watermarks, random logos, or UI elements
+// `;
 
-      //Image generation logic here
-      const input = {
-        prompt: finalPrompt,
-        image_input: [
-          project.logo?.url,
-          project.subject?.url,
-        ].filter(Boolean),
-      };
+//       //Image generation logic here
+//       const input = {
+//         prompt: finalPrompt,
+//         image_input: [
+//           project.logo?.url,
+//           project.subject?.url,
+//         ].filter(Boolean),
+//       };
 
-      //call replicate to generate image
-      const output = await replicate.run("google/nano-banana", { input });
+//       //call replicate to generate image
+//       const output = await replicate.run("google/nano-banana", { input });
 
-      return output.url();
-    });
+//       return output.url();
+//     });
 
-    //Upload image to imagekit function
-    const imagekitUrl = await step.run("upload-to-imagekit", async () => {
-      const imageRef = await imagekit.upload({
-        file: outputUrl,
-        fileName: `project_${projectId}_generated_image.jpg`,
-        isPublished: true,
-        useUniqueFileName: false,
-      });
+//     //Upload image to imagekit function
+//     const imagekitUrl = await step.run("upload-to-imagekit", async () => {
+//       const imageRef = await imagekit.upload({
+//         file: outputUrl,
+//         fileName: `project_${projectId}_generated_image.jpg`,
+//         isPublished: true,
+//         useUniqueFileName: false,
+//       });
 
-      return imageRef.url;
-    });
+//       return imageRef.url;
+//     });
 
-// //For testing purpose
-// const imagekitUrl = "https://ik.imagekit.io/kedars7/project_693597ed78e18eaffa988882_generated_image.jpg?updatedAt=1765120075264"
+//For testing purpose
+const imagekitUrl = "https://ik.imagekit.io/kedars7/project_693597ed78e18eaffa988882_generated_image.jpg?updatedAt=1765120075264"
 
     //Store thumbnail URL in project
     await step.run("store-thumbnail-url", async () => {
@@ -232,8 +232,8 @@ Avoid:
     })
 
 
-// //For testing purpose
-// await step.sleep("wait-a-moment", "12s");
+//For testing purpose
+await step.sleep("wait-a-moment", "5s");
 
     //return thumnail url on imagekit
     return { outputUrl: imagekitUrl };

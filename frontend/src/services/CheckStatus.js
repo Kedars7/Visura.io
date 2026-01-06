@@ -2,7 +2,7 @@ import { API_URL } from '../config/api';
 
 async function getRuns(eventId) {
   try {
-    const response = await fetch(`${API_URL}/inngest-proxy/events/${eventId}/runs`, {
+    const response = await fetch(`${API_URL}/api/inngest-proxy/events/${eventId}/runs`, {
       credentials: 'include',
     });
 
