@@ -2,6 +2,9 @@
 // Remove trailing slash if present
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000').replace(/\/$/, '');
 
+// Export the base URL for direct use
+export const API_URL = API_BASE_URL;
+
 export const API_ENDPOINTS = {
   // User endpoints
   REGISTER: `${API_BASE_URL}/api/users/register`,
