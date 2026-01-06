@@ -67,7 +67,10 @@ const generateImage = inngest.createFunction(
       const connectDB = require("../config/database.js");
       await connectDB();
       
+      // Load all models that will be populated
       const Project = require("../models/projectModel.js");
+      const StylePreset = require("../models/stylePresentModel.js");
+      const Asset = require("../models/assetsModel.js");
 
       const proj = await Project.findById(projectId)
         .populate("styleId")
